@@ -1,7 +1,23 @@
-import React from "react";
+import React, {useEffect, useState} from "react";
 import './Banner.css';
+import axios from "../../axios";
+import requests from "../../Requests";
 
 const Banner = () => {
+    const [movie, setMovie] = useState([]);
+    
+    useEffect(() => {
+        async function fetchData() {
+            const request = await axios.get(requests.fetchNetflixOriginals);
+            setMovie(request.data.results[
+                Math.floor(Math.random() * request.data.results.length - 1)
+                ]);
+            return request;
+        }
+        fetchData();
+    }, []);
+
+    console.log('banner', movie);
 
     const truncateText = (text, number) => {
         return text?.length > number ? text.substr(0, number - 1) + '...' : text;
@@ -9,22 +25,17 @@ const Banner = () => {
 
     return (
         <header className='banner' style={{
-            backgroundPosition: 'center center',
+            // backgroundPosition: 'center center',
             backgroundSize: 'cover',
-            backgroundImage: `url("https://upload.wikimedia.org/wikipedia/commons/c/cd/Black_flag.svg")`
+            backgroundImage: `url("https://image.tmdb.org/wikipedia/t/p/original/${movie?.backdrop_path}")`
         }}>
             <div className='banner__contents'>
-                <h1 className='banner__title'>Movie Name</h1>
+                <h1 className='banner__title'>{movie?.name || movie?.title || movie?.original_name}</h1>
                 <div className='banner__buttons'>
                     <button className='banner__button'>Play</button>
                     <button className='banner__button'>Add to list</button>
                 </div>
-                <h1 className='banner__description'>{truncateText(`Lorem ipsum dolor sit amet, consectetur adipiscing elit, 
-                sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. 
-                Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea 
-                commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu
-                fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia 
-                deserunt mollit anim id est laborum.`, 150)}</h1>
+                <h1 className='banner__description'>{truncateText(`${movie?.overview}`, 150)}</h1>
             </div>
             <div className='banner--fadeButton'/>
         </header>
