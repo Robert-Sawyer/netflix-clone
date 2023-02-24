@@ -25,7 +25,7 @@ const Banner = () => {
 
     return (
         <header className='banner' style={{
-            // backgroundPosition: 'center center',
+            backgroundPosition: 'center center',
             backgroundSize: 'cover',
             backgroundImage: `url("https://image.tmdb.org/wikipedia/t/p/original/${movie?.backdrop_path}")`
         }}>
