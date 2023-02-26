@@ -5,19 +5,20 @@ import requests from "../../Requests";
 
 const Banner = () => {
     const [movie, setMovie] = useState([]);
-    
+
     useEffect(() => {
         async function fetchData() {
-            const request = await axios.get(requests.fetchNetflixOriginals);
-            setMovie(request.data.results[
-                Math.floor(Math.random() * request.data.results.length - 1)
+            const response = await axios.get(requests.fetchNetflixOriginals);
+            setMovie(response.data.results[
+                Math.floor(Math.random() * response.data.results.length)
                 ]);
-            return request;
+            return response;
+
         }
+
         fetchData();
     }, []);
 
-    console.log('banner', movie);
 
     const truncateText = (text, number) => {
         return text?.length > number ? text.substr(0, number - 1) + '...' : text;
