@@ -25,3 +25,7 @@ yarn-error.log*
 
 /src/firebase.js
 /src/tmdbApiKey.js
+
+.firebase
+.firebaserc
+firebase.json
