@@ -38,6 +38,11 @@
     margin-bottom: 30px;
 }
 
+.loginScreen__body > h3 {
+    font-size: 1.3rem;
+    font-weight: 400;
+}
+
 .loginScreen__logo {
     position: fixed;
     left: 0;
@@ -57,4 +62,34 @@
     font-weight: 600;
     border: none;
     cursor: pointer;
+}
+
+.loginScreen__formContainer {
+    margin: 20px 0;
+}
+
+.loginScreen__formContainer > form {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.loginScreen__formContainer > form > input {
+    padding: 10px;
+    outline-width: 0;
+    height: 30px;
+    width: 30%;
+    border: none;
+    max-width: 600px;
+}
+
+.loginScreen__submitButton {
+    padding: 16px 20px;
+    font-size: 1rem;
+    color: white;
+    background-color: #e50914;
+    border: none;
+    font-weight: 600;
+    cursor: pointer;
+    max-height: 50px;
 }
