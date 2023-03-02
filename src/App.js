@@ -4,6 +4,7 @@ import './App.css';
 import HomeScreen from "./screens/Home/HomeScreen";
 import WebFont from 'webfontloader';
 import LoginScreen from "./screens/Login/LoginScreen";
+import {appAuth} from "./firebase";
 
 function App() {
     const [user, setUser] = useState(null);
@@ -14,6 +15,18 @@ function App() {
                 families: ['Helvetica Neue']
             }
         });
+    }, []);
+
+    useEffect(() => {
+        const unsubscribe = appAuth.onAuthStateChanged(userAuth => {
+            if (userAuth) {
+                // Logged in
+                console.log(userAuth);
+            } else {
+                // Logged out
+            }
+        })
+        return () => unsubscribe();
     }, []);
 
     return (
