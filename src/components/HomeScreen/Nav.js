@@ -1,5 +1,6 @@
 import React, {useEffect, useState} from "react";
 import './Nav.css';
+import {appAuth} from "../../firebase";
 
 const Nav = () => {
     const [show, handleShow] = useState(false);
@@ -10,6 +11,10 @@ const Nav = () => {
         } else  {
             handleShow(false)
         }
+    }
+
+    const logout = () => {
+        appAuth.signOut();
     }
 
     useEffect(() => {
@@ -27,6 +32,9 @@ const Nav = () => {
             <a href='/login'>
                 <img className='nav__avatar-icon' src='https://cdn4.iconfinder.com/data/icons/social-messaging-ui-color-squares-01/3/30-512.png' alt=''/>
             </a>
+            <div onClick={logout} style={{color: '#fff', textAlign: 'center'}}>
+                wyloguj
+            </div>
         </div>
     )
 }

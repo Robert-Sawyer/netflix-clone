@@ -1,14 +1,18 @@
 import React, {useEffect, useState} from 'react';
-import {BrowserRouter, Routes, Route} from "react-router-dom";
+import {BrowserRouter, Routes, Route, Navigate} from "react-router-dom";
 import './App.css';
 import HomeScreen from "./screens/Home/HomeScreen";
 import WebFont from 'webfontloader';
 import LoginScreen from "./screens/Login/LoginScreen";
 import {appAuth} from "./firebase";
+import {useDispatch, useSelector} from "react-redux";
+import {login, logout, selectUser} from "./features/userSlice";
 
 function App() {
-    const [user, setUser] = useState(null);
+    const user = useSelector(selectUser)
+    const dispatch = useDispatch();
 
+    console.log('user', user)
     useEffect(() => {
         WebFont.load({
             google: {
@@ -20,10 +24,14 @@ function App() {
     useEffect(() => {
         const unsubscribe = appAuth.onAuthStateChanged(userAuth => {
             if (userAuth) {
-                // Logged in
-                console.log(userAuth);
+                dispatch(login({
+                    userId: userAuth.uid,
+                    userEmail: userAuth.email,
+                }))
+
             } else {
                 // Logged out
+                dispatch(logout)
             }
         })
         return () => unsubscribe();
@@ -33,8 +41,8 @@ function App() {
         <div className="App">
             <BrowserRouter>
                 <Routes>
-                    <Route exact path='/' element={<HomeScreen/>}/>
-                    <Route path='/login' element={<LoginScreen/>}/>
+                    <Route path='/login' element={user ? <Navigate to='/'/> : <LoginScreen/>}/>
+                    <Route path='/' element={!user ? <Navigate to='login'/> : <HomeScreen/>}/>
                 </Routes>
             </BrowserRouter>
         </div>
