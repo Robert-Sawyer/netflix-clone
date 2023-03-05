@@ -7,6 +7,7 @@ import LoginScreen from "./screens/Login/LoginScreen";
 import {appAuth} from "./firebase";
 import {useDispatch, useSelector} from "react-redux";
 import {login, logout, selectUser} from "./features/userSlice";
+import ProfileScreen from "./screens/Profile/ProfileScreen";
 
 function App() {
     const user = useSelector(selectUser)
@@ -42,6 +43,7 @@ function App() {
             <BrowserRouter>
                 <Routes>
                     <Route path='/login' element={user ? <Navigate to='/'/> : <LoginScreen/>}/>
+                    <Route path='/profile' element={<ProfileScreen />}/>
                     <Route path='/' element={!user ? <Navigate to='login'/> : <HomeScreen/>}/>
                 </Routes>
             </BrowserRouter>
