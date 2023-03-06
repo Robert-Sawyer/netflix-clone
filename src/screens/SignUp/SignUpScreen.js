@@ -30,10 +30,10 @@ const SignUpScreen = () => {
     return (
         <div className='signupScreen'>
             <form>
-                <h1>SignIn</h1>
+                <h1>Sign In</h1>
                 <input ref={emailRef} type='email' placeholder='Email'/>
                 <input ref={passwordRef} type='password' placeholder='Password'/>
-                <button onClick={signIn}>SignIn</button>
+                <button onClick={signIn}>Sign In</button>
                 <h4>
                     <span className='signupScreen__gray'>New to Netflix? </span>
                     <span className='signupScreen__link' onClick={register}>Sign Up now.</span>

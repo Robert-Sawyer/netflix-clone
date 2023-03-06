@@ -32,19 +32,19 @@ function App() {
 
             } else {
                 // Logged out
-                dispatch(logout)
+                dispatch(logout())
             }
         })
         return () => unsubscribe();
-    }, []);
+    }, [dispatch]);
 
     return (
         <div className="App">
             <BrowserRouter>
                 <Routes>
                     <Route path='/login' element={user ? <Navigate to='/'/> : <LoginScreen/>}/>
-                    <Route path='/profile' element={<ProfileScreen />}/>
-                    <Route path='/' element={!user ? <Navigate to='login'/> : <HomeScreen/>}/>
+                    <Route path='/profile' element={!user ? <Navigate to='/login'/> : <ProfileScreen />}/>
+                    <Route path='/' element={!user ? <Navigate to='/login'/> : <HomeScreen/>}/>
                 </Routes>
             </BrowserRouter>
         </div>
