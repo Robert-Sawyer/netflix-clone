@@ -1,15 +1,14 @@
-import React from "react";
+import React, {useState} from "react";
 import Nav from "../../components/HomeScreen/Nav";
 import './ProfileScreen.css';
 import {useSelector} from "react-redux";
 import {selectUser} from "../../features/userSlice";
 import {appAuth} from "../../firebase";
+import PlanScreen from "../Plan/PlanScreen";
 
 const ProfileScreen = () => {
-
+    const [currentPlan, setCurrentPlan] = useState(null);
     const user = useSelector(selectUser);
-
-    console.log(user)
 
     return (
         <div className='profileScreen'>
@@ -24,7 +23,8 @@ const ProfileScreen = () => {
                     <div className='profileScreen__details'>
                         <h2>{user.userEmail}</h2>
                         <div className='profileScreen__plans'>
-                            <h3>Plans</h3>
+                            <h3>Plans (Current Plan: {currentPlan})</h3>
+                            <PlanScreen setCurrentPlan={setCurrentPlan}/>
                             <button
                                 onClick={() => appAuth.signOut()}
                                 className='profileScreen__signOut'
